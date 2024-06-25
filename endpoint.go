@@ -24,7 +24,7 @@ func getUser(c *gin.Context) {
 	id := c.Param("id")
 	user, exists := users[id]
 	if !exists {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		errors.RestError(c.Writer, errors.NewString("User not found", errors.EErrorNotFound))
 		return
 	}
 	c.JSON(http.StatusOK, user)
@@ -41,7 +41,7 @@ func updateUser(c *gin.Context) {
 
 	user, exists := users[id]
 	if !exists {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		errors.RestError(c.Writer, errors.NewString("User not found", errors.EErrorNotFound))
 		return
 	}
 
@@ -57,7 +57,7 @@ func deleteUser(c *gin.Context) {
 	id := c.Param("id")
 	_, exists := users[id]
 	if !exists {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		errors.RestError(c.Writer, errors.NewString("User not found", errors.EErrorNotFound))
 		return
 	}
 

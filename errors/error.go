@@ -1,5 +1,7 @@
 package errors
 
+import "errors"
+
 type internalError struct {
 	Message string         `json:"message"`
 	Err     error          `json:"-"`
@@ -25,7 +27,25 @@ func New(
 	ie := internalError{
 		Message: message,
 		Err:     err,
-		//Tracing: tracing.Trace(),
+		Tracing: Trace(),
+		Type: Type,
+	}
+
+	if len(data) > 0 {
+		ie.Data = data[0]
+	}
+
+	return ie
+}
+func NewString(
+	message string,
+	Type Type,
+	data ...map[string]any,
+) internalError {
+	ie := internalError{
+		Message: message,
+		Err:     errors.New(message),
+		Tracing: Trace(),
 		Type: Type,
 	}
 
