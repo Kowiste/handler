@@ -1,7 +1,7 @@
 package main
 
 import (
-	"hangler/errors"
+	"handler/errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
